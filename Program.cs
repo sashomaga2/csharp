@@ -12,17 +12,17 @@ namespace FirstLesson
     {
         static void Main(string[] args)
         {
-            var input = Console.ReadLine();
-
-            if (string.IsNullOrEmpty(input))
+            try
             {
-                throw new InvalidEnumArgumentException("Input data is invalid!");
+                var data = ParseInput();
+                var arr = InitMultyArray(data[0]);
+                IncrementLastNestedArrayAtIndex(arr, data[1]);
+                PrintArray(arr);
             }
-            
-            var data = ParseInput(input);
-            var arr = InitMultyArray(data[0]);
-            IncrementLastNestedArrayAtIndex(arr, data[1]);
-            PrintArray(arr);
+            catch (ArgumentException e)
+            {
+                Console.WriteLine("Something went wrong: {0}", e.Message);
+            }
         }
 
         private static void IncrementLastNestedArrayAtIndex(long[][] arr, int index)
@@ -30,19 +30,29 @@ namespace FirstLesson
             var lastArrIndex = arr[arr.Length - 1].Length;
             if (index > lastArrIndex || lastArrIndex < 0)
             {
-                throw new ArgumentException("Second input is not valid!");
+                throw new ArgumentException("Second input is out of range");
                 
             }
 
             arr[arr.Length - 1][index]++;
         }
 
-        public static int[] ParseInput(string input)
+        public static int[] ParseInput()
         {
-            return input.Split(' ').Select(e =>
+            var input = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(input))
+            {
+                throw new ArgumentException("Input data is invalid!");
+            }
+
+            return input.Split(' ').Select((e, index) =>
             {
                 int el;
-                int.TryParse(e, out el);
+                if (!int.TryParse(e, out el))
+                {
+                    throw new ArgumentException($"Argument at index {index} is invalid!");
+                };
                 return el;
             }).ToArray();
         }
