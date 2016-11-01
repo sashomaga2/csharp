@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -11,20 +12,29 @@ namespace FirstLesson
     {
         static void Main(string[] args)
         {
-
             var input = Console.ReadLine();
 
-            if (!string.IsNullOrEmpty(input))
+            if (string.IsNullOrEmpty(input))
             {
-                var data = ParseInput(input);
-                var arr = InitMultyArray(data[0]);
-                IncrementNestedArraysAtIndex(arr, data[1]);
-                PrintArray(arr);
+                throw new InvalidEnumArgumentException("Input data is invalid!");
             }
-            else
+            
+            var data = ParseInput(input);
+            var arr = InitMultyArray(data[0]);
+            IncrementLastNestedArrayAtIndex(arr, data[1]);
+            PrintArray(arr);
+        }
+
+        private static void IncrementLastNestedArrayAtIndex(long[][] arr, int index)
+        {
+            var lastArrIndex = arr[arr.Length - 1].Length;
+            if (index > lastArrIndex || lastArrIndex < 0)
             {
-                Console.WriteLine("Invalid Input data!");
+                throw new ArgumentException("Second input is not valid!");
+                
             }
+
+            arr[arr.Length - 1][index]++;
         }
 
         public static int[] ParseInput(string input)
@@ -50,14 +60,6 @@ namespace FirstLesson
                
             }
             return arr;
-        }
-
-        public static void IncrementNestedArraysAtIndex(long[][] arr, int index)
-        {
-            foreach (var innerArr in arr)
-            {
-                innerArr[index]++;
-            }
         }
 
         public static void PrintArray(long[][] arr)
