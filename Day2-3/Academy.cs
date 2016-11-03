@@ -58,30 +58,46 @@ namespace ClassesLesson
                     break;
                 }
 
-                var parts = SplitInput(input, 2);
-                var studentId = ParseIntSave(parts[0], "StudentId");
-                var student = _students.SingleOrDefault(s => s.Id == studentId);
-                if (student == null)
-                {
-                    throw new InvalidOperationException("Student does not exist");
-                }
-                var courseId = ParseIntSave(parts[1], "CourseId");
-                var course = _cources.SingleOrDefault(c => c.Id == courseId);
-                if (course == null)
-                {
-                    throw new InvalidOperationException("Course does not exist");
-                }
+                AddStudentToCourse(input);
+            }
+        }
 
-                if (student.CourseId == null)
-                {
-                    course.Add(student);
-                    student.CourseId = courseId;
-                }
-                else
-                {
-                    throw new InvalidOperationException($"Student already subscribed to course {student.CourseId}");
-                }
-                
+        private Student GetStudentById(int id)
+        {
+            var student = _students.SingleOrDefault(s => s.Id == id);
+            if (student == null)
+            {
+                throw new InvalidOperationException("Student does not exist");
+            }
+            return student;
+        }
+
+        private Course GetCourseById(int id)
+        {
+            var course = _cources.SingleOrDefault(c => c.Id == id);
+            if (course == null)
+            {
+                throw new InvalidOperationException("Course does not exist");
+            }
+            return course;
+        }
+
+        private void AddStudentToCourse(string input)
+        {
+            var parts = SplitInput(input, 2);
+            var studentId = ParseIntSave(parts[0], "StudentId");
+            var student = GetStudentById(studentId);
+            var courseId = ParseIntSave(parts[1], "CourseId");
+            var course = GetCourseById(courseId);
+            
+            if (student.CourseId == null)
+            {
+                course.Add(student);
+                student.CourseId = courseId;
+            }
+            else
+            {
+                throw new InvalidOperationException($"Student {student.ToString()} already subscribed to course {student.CourseId}");
             }
         }
 
