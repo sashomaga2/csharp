@@ -10,7 +10,7 @@ namespace ClassesLesson
 {
     public class PersonSorter
     {
-        private List<Person> data;
+        private List<Person> list;
 
         public string EndCommand { get; } = "quit";
 
@@ -18,8 +18,10 @@ namespace ClassesLesson
 
         public PersonSorter()
         {
-            data = new List<Person>();
+            list = new List<Person>();
         }
+
+        #region Methods
 
         public void Read(IReader reader)
         {
@@ -37,27 +39,35 @@ namespace ClassesLesson
                     break;
                 }
 
-                var parts = input.Split(new [] { "//" }, StringSplitOptions.None);
-                int age;
-                
-                if (int.TryParse(parts[1], out age) && age > MinAge)
-                {
-                    data.Add(new Person(parts[0], age));
-                }
+                SavePerson(input);
             }
         }
+
+        private void SavePerson(string input)
+        {
+            var parts = input.Split(new[] {"//"}, StringSplitOptions.None);
+
+            int age;
+            if (int.TryParse(parts[1], out age) && age > MinAge)
+            {
+                list.Add(new Person(parts[0], age));
+            }
+        }
+
 
         public void Sort()
         {
             // IComparable<Person>
-            data.Sort();
+            list.Sort();
             // Linq
             //data = data.OrderBy(p => p.Name.Length).ToList();
         }
 
         public void Write(IWriter writer)
         {
-            data.ForEach(p => writer.WriteLine(p.ToString()));
+            list.ForEach(p => writer.WriteLine(p.ToString()));
         }
+
+        #endregion
     }
 }

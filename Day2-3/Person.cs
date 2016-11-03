@@ -8,8 +8,15 @@ namespace ClassesLesson
 {
     public class Person : IComparable<Person>
     {
+        #region Static
+
         public static string DefaultName { get; } = "No name";
+
         public static int DefaultAge { get; } = 1;
+
+        #endregion
+
+        #region Constructors
 
         public Person()
         {
@@ -37,9 +44,18 @@ namespace ClassesLesson
             Age = 1;
         }
 
+        #endregion Constructors
+
+
+        #region Props
+
         public string Name { get; set; }
 
         public int Age { get; set; }
+
+        #endregion
+
+        #region Methods
 
         public int CompareTo(Person other)
         {
@@ -51,6 +67,6 @@ namespace ClassesLesson
             return $"{Name} {Age}";
         }
 
-        
+        #endregion
     }
 }
