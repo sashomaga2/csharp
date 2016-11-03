@@ -13,7 +13,6 @@ namespace ClassesLesson
             /* First Task */
             try
             {
-
                 Person p1;
                 p1 = new Person();
                 Console.WriteLine(p1.ToString());
@@ -36,11 +35,32 @@ namespace ClassesLesson
             {
                 var personSorter = new PersonSorter();
                 var consoleIO = new ConsoleIO();
+
                 personSorter.Read(consoleIO);
                 personSorter.Sort();
                 personSorter.Write(consoleIO);
             }
             catch (ArgumentException e)
+            {
+                Console.WriteLine("Something went wrong: {0}", e.Message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something bad happaned: {0}", e.Message);
+            }
+
+            /* Third Task */
+            try
+            {
+                var consoleIO = new ConsoleIO();
+                var academy = new Academy(consoleIO, consoleIO);
+                academy.Init();
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine("Something went wrong: {0}", e.Message);
+            }
+            catch (InvalidOperationException e)
             {
                 Console.WriteLine("Something went wrong: {0}", e.Message);
             }
