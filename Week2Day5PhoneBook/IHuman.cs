@@ -8,8 +8,6 @@ namespace JSONSerialization
 {
     public interface IHuman
     {
-        Guid Id { get; set; }
-
         string FirstName { get; set; }
 
         string MiddleName { get; set; }

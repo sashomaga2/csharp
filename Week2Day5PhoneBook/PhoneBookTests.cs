@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 using JSONSerialization;
 using Moq;
 using NUnit.Framework;
@@ -122,7 +123,18 @@ namespace ClassesTests
         [Test]
         public void PhoneBookJsonSerialize()
         {
-            
+            var data = book.Find("Gancho", "Sofia");
+            var actual = book.Serialize(data, SerializeType.Json);
+
+            var expectedData = new IHuman[]
+            {
+                new Human { FirstName = "Bat", MiddleName = "Gancho", Town = "Sofia", Number = "02 946 946 946" },
+                new Human { FirstName = "Gancho", MiddleName = "Hubaveca", Town = "Sofia", Number = "++359 34 34 34 34" }
+            };
+
+            var expected = new JavaScriptSerializer().Serialize(expectedData);
+
+            Assert.AreEqual(expected, actual);
         }
 
     }

@@ -14,7 +14,7 @@ namespace JSONSerialization
             Id = Guid.NewGuid();
         }
 
-        public Guid Id { get; set; }
+        private Guid Id { get; set; }
 
         public string FirstName { get; set; }
 
