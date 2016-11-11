@@ -26,6 +26,12 @@ namespace ClassesTests
             }
         };
 
+        private static IHuman[] findNameAndTownResult = new Human[]
+        {
+            new Human { FirstName = "Bat", MiddleName = "Gancho", Town = "Sofia", Number = "02 946 946 946" },
+            new Human { FirstName = "Gancho", MiddleName = "Hubaveca", Town = "Sofia", Number = "++359 34 34 34 34" }
+        };
+
         private PhoneBook book;
 
         [SetUp]
@@ -81,11 +87,7 @@ namespace ClassesTests
         public void PhoneBookFindByNameAndTown()
         {
             var actual = book.Find("Gancho", "Sofia");
-            var expected = new Human[]
-            {
-                new Human { FirstName = "Bat", MiddleName = "Gancho", Town = "Sofia", Number = "02 946 946 946" },
-                new Human { FirstName = "Gancho", MiddleName = "Hubaveca", Town = "Sofia", Number = "++359 34 34 34 34" }
-            };
+            var expected = findNameAndTownResult;
 
             Assert.AreEqual(2, actual.Length);
             Assert.AreEqual(expected[0], actual[0]);
@@ -126,11 +128,7 @@ namespace ClassesTests
             var data = book.Find("Gancho", "Sofia");
             var actual = book.Serialize(data, SerializeType.Json);
 
-            var expectedData = new IHuman[]
-            {
-                new Human { FirstName = "Bat", MiddleName = "Gancho", Town = "Sofia", Number = "02 946 946 946" },
-                new Human { FirstName = "Gancho", MiddleName = "Hubaveca", Town = "Sofia", Number = "++359 34 34 34 34" }
-            };
+            var expectedData = findNameAndTownResult;
 
             var expected = new JavaScriptSerializer().Serialize(expectedData);
 
