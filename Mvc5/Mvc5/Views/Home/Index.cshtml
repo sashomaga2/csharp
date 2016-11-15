@@ -1,0 +1,70 @@
+﻿@using Entity
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@model CalculatorViewModel
+
+<div class="jumbotron">
+    <h1>Бат Сашо The God of MVC</h1>
+</div>
+
+@using (Html.BeginForm("", "Calculator", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <h3>Calculator</h3>
+        @Html.LabelFor(m => m.Num1)
+        @Html.TextBoxFor(m => m.Num1, new { @class = "form-control" })
+
+        @Html.LabelFor(m => m.Num2)
+        @Html.TextBoxFor(m => m.Num2, new { @class = "form-control" })
+
+        @Html.LabelFor(m => m.Operation)
+        @Html.EnumDropDownListFor(m => m.Operation, new { @class = "form-control" })
+
+        @Html.LabelFor(m => m.Result)
+        @Html.TextBoxFor(m => m.Result, new { @class = "form-control", @readonly = "readonly", id = "result" })
+    </div>
+    <input type="submit" class="btn btn-success" id="submit" />
+}
+
+@section Scripts {
+    <script>
+        console.log("Running .....");
+        $(function() {
+            var ajaxFormSubmit = function () {
+                
+                var $form = $(this).parents("form");
+                console.log("form", $form.get());
+                var url = "/api" + $form.attr("action");
+                url = "/api/Calculator";
+                //url = "/Home/Calculate";
+                console.log("type", url);
+
+                var options = {
+                    url: url,
+                    type: $form.attr("method"),
+                    data: $form.serialize()
+                }
+
+                console.log("options", options);
+
+                $.ajax(options)
+                    .done(function(data) {
+                        var $target = $("#result");
+                        $target.val(data);
+
+                        console.log("done", data);
+
+                        //$target.effect("highlight");
+                    });
+
+                return false;
+            }
+
+            $("#submit").on('click', ajaxFormSubmit);
+        });
+
+    </script>
+}

@@ -1,0 +1,5 @@
+c:\Users\Student\documents\visual studio 2015\Projects\Mvc5\Entity\bin\Debug\Entity.dll
+c:\Users\Student\documents\visual studio 2015\Projects\Mvc5\Entity\bin\Debug\Entity.pdb
+c:\Users\Student\documents\visual studio 2015\Projects\Mvc5\Entity\obj\Debug\Entity.csprojResolveAssemblyReference.cache
+c:\Users\Student\documents\visual studio 2015\Projects\Mvc5\Entity\obj\Debug\Entity.dll
+c:\Users\Student\documents\visual studio 2015\Projects\Mvc5\Entity\obj\Debug\Entity.pdb
