@@ -1,0 +1,6 @@
+PM> Install-Package jquery.TypeScript.DefinitelyTyped
+
+/// <reference path="../../Scripts/typings/jquery/jquery.d.ts" />
+
+Start chrome in remote debug mode: chrome.exe --remote-debugging-port=9222
+Attach Visual Studio: "Debug" -> "Attach to Process..." -> select the chrome instance
